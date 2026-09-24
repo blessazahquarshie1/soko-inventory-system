@@ -1,4 +1,5 @@
 import type { TabType } from '../types/inventory'
+import { FiBookOpen, FiBox, FiClock, FiInfo, FiRepeat } from 'react-icons/fi'
 import './Sidebar.css'
 
 interface SidebarProps {
@@ -44,29 +45,10 @@ export function Sidebar({
                 onClick={() => onSelectTab(tab)}
               >
                 <span className="nav-svg-icon" aria-hidden="true">
-                  {tab === 'Dashboard' && (
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5Z" />
-                      <path d="M6 6h10M6 10h10" />
-                    </svg>
-                  )}
-                  {tab === 'Inventory' && (
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
-                      <path d="m3.3 7 8.7 5 8.7-5M12 22V12" />
-                    </svg>
-                  )}
-                  {tab === 'Borrowings' && (
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="m16 3 4 4-4 4M20 7H4M8 21l-4-4 4-4M4 17h16" />
-                    </svg>
-                  )}
-                  {tab === 'History' && (
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <circle cx="12" cy="12" r="10" />
-                      <path d="M12 6v6l4 2" />
-                    </svg>
-                  )}
+                  {tab === 'Dashboard' && <FiBookOpen />}
+                  {tab === 'Inventory' && <FiBox />}
+                  {tab === 'Borrowings' && <FiRepeat />}
+                  {tab === 'History' && <FiClock />}
                 </span>
                 <span className="link-label">{label}</span>
               </button>
@@ -77,12 +59,7 @@ export function Sidebar({
 
       <div className="sidebar-footer">
         <button type="button" className="guide-terms-btn" onClick={onOpenGuideTerms}>
-          <span className="nav-svg-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="12" r="10" />
-              <path d="M12 16v-4M12 8h.01" />
-            </svg>
-          </span>
+          <span className="nav-svg-icon" aria-hidden="true"><FiInfo /></span>
           <span className="link-label">Guide &amp; Terms</span>
         </button>
         <div className="footer-version">v1.0 · Inventory workspace</div>

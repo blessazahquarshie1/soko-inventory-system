@@ -1,11 +1,11 @@
 .header {
-  height: 68px;
+  height: 84px;
   background-color: #ffffff;
   border-bottom: 1px solid #e2e8f0;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding: 0 2rem;
+  padding: 0 2.25rem;
   box-sizing: border-box;
   position: sticky;
   top: 0;

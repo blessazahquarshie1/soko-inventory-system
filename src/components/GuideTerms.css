@@ -59,7 +59,8 @@
 }
 
 .guide-icon {
-  font-size: 1.75rem;
+  display: inline-flex;
+  font-size: 1.5rem;
   line-height: 1;
   margin-top: 2px;
   flex-shrink: 0;
@@ -126,7 +127,8 @@
 }
 
 .guide-section-icon {
-  font-size: 1.1rem;
+  display: inline-flex;
+  font-size: 1.05rem;
   line-height: 1;
 }
 

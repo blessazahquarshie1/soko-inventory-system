@@ -10,12 +10,12 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  background-color: rgba(30, 41, 59, 0.7);
-  border: 1px solid #1e293b;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
   padding: 0.65rem 0.75rem;
   border-radius: 10px;
   cursor: pointer;
-  color: #f8fafc;
+  color: #0f172a;
   transition: all 0.2s ease;
   font-family: inherit;
   text-align: left;
@@ -23,8 +23,8 @@
 }
 
 .user-profile-bar:hover {
-  background-color: #1e293b;
-  border-color: #334155;
+  background-color: #eef2f7;
+  border-color: #cbd5e1;
 }
 
 .avatar-wrapper {
@@ -82,7 +82,7 @@
 .user-name {
   font-size: 0.875rem;
   font-weight: 600;
-  color: #f1f5f9;
+  color: #0f172a;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -90,7 +90,7 @@
 
 .user-role {
   font-size: 0.725rem;
-  color: #94a3b8;
+  color: #64748b;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -103,7 +103,7 @@
 
 .switch-icon {
   font-size: 0.85rem;
-  color: #64748b;
+  color: #94a3b8;
   flex-shrink: 0;
 }
 
@@ -115,7 +115,7 @@
   gap: 0.65rem;
   background-color: #f8fafc;
   border: 1px solid #e2e8f0;
-  padding: 0.45rem 0.8rem 0.45rem 0.55rem;
+  padding: 0.55rem 0.9rem 0.55rem 0.65rem;
   border-radius: 9999px;
   cursor: pointer;
   color: #0f172a;
@@ -137,8 +137,8 @@
 }
 
 .header-avatar-wrapper .user-avatar {
-  width: 30px;
-  height: 30px;
+  width: 34px;
+  height: 34px;
   font-size: 0.75rem;
   box-shadow: none;
 }
@@ -164,7 +164,7 @@
 }
 
 .header-user-name {
-  font-size: 0.825rem;
+  font-size: 0.85rem;
   font-weight: 700;
   color: #0f172a;
   line-height: 1.2;
@@ -172,7 +172,7 @@
 }
 
 .header-user-role {
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   color: #64748b;
   white-space: nowrap;
   line-height: 1.2;

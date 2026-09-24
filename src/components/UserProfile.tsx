@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { FiArrowRight, FiCheck, FiChevronDown, FiRepeat } from 'react-icons/fi'
 import type { UserProfile as UserProfileType } from '../types/inventory'
 import './UserProfile.css'
 
@@ -53,7 +54,7 @@ export function UserProfile({
                   <span className="dropdown-name">{user.name}</span>
                   <span className="dropdown-role">{user.role}</span>
                 </div>
-                {currentUser?.id === user.id && <span className="checkmark">✓</span>}
+                {currentUser?.id === user.id && <span className="checkmark"><FiCheck aria-hidden="true" /></span>}
               </button>
             ))}
           </div>
@@ -91,7 +92,7 @@ export function UserProfile({
             <span className="header-user-name">{currentUser?.name ?? 'Guest User'}</span>
             <span className="header-user-role">{currentUser?.role ?? 'Click to sign in'}</span>
           </div>
-          <span className="chevron-icon">▾</span>
+          <FiChevronDown className="chevron-icon" aria-hidden="true" />
         </button>
       ) : (
         <button
@@ -112,7 +113,7 @@ export function UserProfile({
               {currentUser?.role ?? 'Click to Sign In'}
             </span>
           </div>
-          <span className="switch-icon">{currentUser ? '⇅' : '→'}</span>
+          {currentUser ? <FiRepeat className="switch-icon" aria-hidden="true" /> : <FiArrowRight className="switch-icon" aria-hidden="true" />}
         </button>
       )}
     </div>

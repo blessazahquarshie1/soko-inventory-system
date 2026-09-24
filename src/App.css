@@ -2,7 +2,7 @@
   display: flex;
   min-height: 100vh;
   width: 100%;
-  background-color: #f8fafc;
+  background: #f1f5f9;
 }
 
 .main-wrapper {
@@ -16,12 +16,19 @@
 
 .main-content {
   flex: 1;
-  padding: 2rem;
+  padding: 2.25rem;
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
   box-sizing: border-box;
   animation: pageEnter 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, 0.28);
+  outline-offset: 2px;
 }
 
 @keyframes pageEnter {
@@ -40,6 +47,6 @@
     flex-direction: column;
   }
   .main-content {
-    padding: 1rem;
+    padding: 1.25rem;
   }
 }

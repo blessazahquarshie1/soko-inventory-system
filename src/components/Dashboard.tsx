@@ -1,4 +1,12 @@
 import type { BorrowRecord, InventoryItem, UserProfile } from '../types/inventory'
+import {
+  FiAlertTriangle,
+  FiCalendar,
+  FiCheckCircle,
+  FiPackage,
+  FiPlus,
+  FiRefreshCw,
+} from 'react-icons/fi'
 import './Dashboard.css'
 
 interface DashboardProps {
@@ -85,16 +93,16 @@ export function Dashboard({
         <div className="greeting-alert">
           {myOverdueLoans.length > 0 && (
             <div className="alert-chip chip-danger">
-              ⚠️ {myOverdueLoans.length} overdue item{myOverdueLoans.length === 1 ? '' : 's'} — return soon
+              <FiAlertTriangle aria-hidden="true" /> {myOverdueLoans.length} overdue item{myOverdueLoans.length === 1 ? '' : 's'} — return soon
             </div>
           )}
           {myOverdueLoans.length === 0 && myActiveLoans.length > 0 && (
             <div className="alert-chip chip-warning">
-              📅 {myActiveLoans.length} active loan{myActiveLoans.length === 1 ? '' : 's'}
+              <FiCalendar aria-hidden="true" /> {myActiveLoans.length} active loan{myActiveLoans.length === 1 ? '' : 's'}
             </div>
           )}
           {currentUser && myActiveLoans.length === 0 && (
-            <div className="alert-chip chip-success">✅ No active loans — all clear!</div>
+            <div className="alert-chip chip-success"><FiCheckCircle aria-hidden="true" /> No active loans — all clear!</div>
           )}
         </div>
       </div>
@@ -148,29 +156,29 @@ export function Dashboard({
         </div>
         {onNavigateToBorrow && (
           <button type="button" className="btn-primary" onClick={onNavigateToBorrow}>
-            + Borrow equipment
+            <FiPlus aria-hidden="true" /> Borrow equipment
           </button>
         )}
       </div>
 
       <div className="stats-grid">
         <div className="stat-card">
-          <div className="stat-header"><span className="stat-title">Total items</span><span className="stat-icon">📦</span></div>
+          <div className="stat-header"><span className="stat-title">Total items</span><span className="stat-icon"><FiPackage aria-hidden="true" /></span></div>
           <div className="stat-value">{totalItems}</div>
           <div className="stat-description">Hardware units in lab</div>
         </div>
         <div className="stat-card stat-card-available">
-          <div className="stat-header"><span className="stat-title">Available</span><span className="stat-icon">✅</span></div>
+          <div className="stat-header"><span className="stat-title">Available</span><span className="stat-icon"><FiCheckCircle aria-hidden="true" /></span></div>
           <div className="stat-value text-emerald">{availableItems}</div>
           <div className="stat-description">Ready for deployment</div>
         </div>
         <div className="stat-card stat-card-borrowed">
-          <div className="stat-header"><span className="stat-title">Currently borrowed</span><span className="stat-icon">🔄</span></div>
+          <div className="stat-header"><span className="stat-title">Currently borrowed</span><span className="stat-icon"><FiRefreshCw aria-hidden="true" /></span></div>
           <div className="stat-value text-sky">{currentlyBorrowed}</div>
           <div className="stat-description">Checked out by members</div>
         </div>
         <div className="stat-card stat-card-overdue">
-          <div className="stat-header"><span className="stat-title">Overdue</span><span className="stat-icon">⚠️</span></div>
+          <div className="stat-header"><span className="stat-title">Overdue</span><span className="stat-icon"><FiAlertTriangle aria-hidden="true" /></span></div>
           <div className="stat-value text-rose">{overdueItems}</div>
           <div className="stat-description">Action required</div>
         </div>

@@ -1,4 +1,12 @@
 import './GuideTerms.css'
+import {
+  FiAlertTriangle,
+  FiCheckCircle,
+  FiClipboard,
+  FiRefreshCw,
+  FiShield,
+  FiX,
+} from 'react-icons/fi'
 
 interface GuideTermsProps {
   onClose: () => void
@@ -16,14 +24,14 @@ export function GuideTerms({ onClose }: GuideTermsProps) {
         {/* Modal Header */}
         <div className="guide-modal-header">
           <div className="guide-title-group">
-            <span className="guide-icon">📋</span>
+            <span className="guide-icon"><FiClipboard aria-hidden="true" /></span>
             <div>
               <h2 className="guide-title">Borrowing Guide &amp; Terms of Use</h2>
               <p className="guide-subtitle">Soko Aerial Robotics Inventory System — Equipment Borrowing Policy</p>
             </div>
           </div>
           <button type="button" className="guide-close-btn" onClick={onClose} aria-label="Close">
-            ✕
+            <FiX aria-hidden="true" />
           </button>
         </div>
 
@@ -32,7 +40,7 @@ export function GuideTerms({ onClose }: GuideTermsProps) {
           {/* Section 1 */}
           <section className="guide-section">
             <div className="guide-section-header">
-              <span className="guide-section-icon">✅</span>
+              <span className="guide-section-icon"><FiCheckCircle aria-hidden="true" /></span>
               <h3 className="guide-section-title">Borrowing Rules</h3>
             </div>
             <ul className="guide-list">
@@ -47,7 +55,7 @@ export function GuideTerms({ onClose }: GuideTermsProps) {
           {/* Section 2 */}
           <section className="guide-section">
             <div className="guide-section-header">
-              <span className="guide-section-icon">🔄</span>
+              <span className="guide-section-icon"><FiRefreshCw aria-hidden="true" /></span>
               <h3 className="guide-section-title">Return Policy</h3>
             </div>
             <ul className="guide-list">
@@ -61,7 +69,7 @@ export function GuideTerms({ onClose }: GuideTermsProps) {
           {/* Section 3 */}
           <section className="guide-section">
             <div className="guide-section-header">
-              <span className="guide-section-icon">🛡️</span>
+              <span className="guide-section-icon"><FiShield aria-hidden="true" /></span>
               <h3 className="guide-section-title">Member Responsibilities</h3>
             </div>
             <ul className="guide-list">
@@ -76,7 +84,7 @@ export function GuideTerms({ onClose }: GuideTermsProps) {
           {/* Section 4 */}
           <section className="guide-section">
             <div className="guide-section-header">
-              <span className="guide-section-icon">⚠️</span>
+              <span className="guide-section-icon"><FiAlertTriangle aria-hidden="true" /></span>
               <h3 className="guide-section-title">Consequences</h3>
             </div>
             <ul className="guide-list consequence-list">

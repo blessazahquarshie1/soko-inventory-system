@@ -79,6 +79,18 @@
 .greeting-role { margin: 0.2rem 0 0; color: #64748b; font-size: 0.85rem; }
 .greeting-alert { margin-left: auto; }
 .greeting-alert { position: relative; z-index: 1; }
+.greeting-role,
+.alert-chip,
+.my-loans-subtitle,
+.my-loans-badge,
+.loan-item-qty,
+.loan-due-label,
+.loan-due-date,
+.loan-overdue-chip,
+.stat-description,
+.table-badge {
+  font-family: var(--font-secondary);
+}
 .alert-chip { padding: 0.5rem 0.75rem; border-radius: 999px; font-size: 0.8rem; font-weight: 700; }
 .chip-success { color: #166534; background: #dcfce7; }
 .chip-warning { color: #92400e; background: #fef3c7; }
@@ -232,28 +244,28 @@
     opacity: 0;
     transform: translateY(16px) scale(0.985);
   }
-
-  @keyframes dashboardHeroIn {
-    from {
-      opacity: 0;
-      transform: translateX(-28px) scale(0.97);
-      clip-path: inset(0 100% 0 0);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0) scale(1);
-      clip-path: inset(0 0 0 0);
-    }
-  }
-
-  @keyframes avatarPulse {
-    0%, 100% { box-shadow: 0 8px 18px rgba(37, 99, 235, 0.28); }
-    50% { box-shadow: 0 8px 26px rgba(56, 189, 248, 0.5); }
-  }
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
+}
+
+@keyframes dashboardHeroIn {
+  from {
+    opacity: 0;
+    transform: translateX(-28px) scale(0.97);
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes avatarPulse {
+  0%, 100% { box-shadow: 0 8px 18px rgba(37, 99, 235, 0.28); }
+  50% { box-shadow: 0 8px 26px rgba(56, 189, 248, 0.5); }
 }
 
 .stat-card::before {
@@ -306,10 +318,20 @@
 }
 
 .stat-icon {
-  font-size: 1.35rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
   padding: 0.35rem;
   background-color: #f8fafc;
   border-radius: 8px;
+}
+
+.alert-chip,
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 
 .stat-value {
