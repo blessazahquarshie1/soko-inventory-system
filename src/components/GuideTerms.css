@@ -1,0 +1,214 @@
+/* Backdrop Overlay */
+.guide-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 500;
+  padding: 1rem;
+  animation: fadeInBackdrop 0.2s ease;
+}
+
+@keyframes fadeInBackdrop {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Modal Card */
+.guide-modal {
+  background-color: #ffffff;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 640px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+  animation: slideUpModal 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+@keyframes slideUpModal {
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Modal Header */
+.guide-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 1.35rem 1.5rem 1.1rem;
+  border-bottom: 1px solid #e2e8f0;
+  flex-shrink: 0;
+}
+
+.guide-title-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+}
+
+.guide-icon {
+  font-size: 1.75rem;
+  line-height: 1;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.guide-title {
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 0.2rem;
+  letter-spacing: -0.02em;
+}
+
+.guide-subtitle {
+  font-size: 0.775rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.guide-close-btn {
+  background: none;
+  border: 1px solid #e2e8f0;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  color: #64748b;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+
+.guide-close-btn:hover {
+  background-color: #f1f5f9;
+  color: #0f172a;
+  border-color: #cbd5e1;
+}
+
+/* Scrollable body */
+.guide-body {
+  overflow-y: auto;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+  flex: 1;
+}
+
+/* Each section */
+.guide-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.guide-section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.1rem;
+}
+
+.guide-section-icon {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.guide-section-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.guide-list {
+  margin: 0;
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.guide-list li {
+  font-size: 0.865rem;
+  color: #334155;
+  line-height: 1.55;
+}
+
+.guide-list li strong {
+  color: #0f172a;
+}
+
+/* Consequences list — slightly different tone */
+.consequence-list li {
+  background-color: #fff7ed;
+  border-left: 3px solid #f97316;
+  padding: 0.45rem 0.65rem;
+  border-radius: 0 6px 6px 0;
+  list-style: none;
+  margin-left: -0.25rem;
+  font-size: 0.855rem;
+  color: #431407;
+}
+
+.consequence-list li strong {
+  color: #c2410c;
+}
+
+/* Footer note */
+.guide-footer-note {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  text-align: center;
+  border-top: 1px solid #f1f5f9;
+  padding-top: 1rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Modal Footer */
+.guide-modal-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: flex-end;
+  flex-shrink: 0;
+}
+
+.btn-understood {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #ffffff;
+  border: none;
+  padding: 0.65rem 1.5rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s ease;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.35);
+}
+
+.btn-understood:hover {
+  background: linear-gradient(135deg, #1d4ed8, #1e40af);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.45);
+  transform: translateY(-1px);
+}
+

@@ -1,0 +1,341 @@
+/* ── Shared wrapper ─────────────────────────────────── */
+.user-profile-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* ── Sidebar variant ─────────────────────────────────── */
+.user-profile-bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background-color: rgba(30, 41, 59, 0.7);
+  border: 1px solid #1e293b;
+  padding: 0.65rem 0.75rem;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #f8fafc;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.user-profile-bar:hover {
+  background-color: #1e293b;
+  border-color: #334155;
+}
+
+.avatar-wrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2563eb, #38bdf8);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
+}
+
+.user-avatar.guest {
+  background: #334155;
+  color: #94a3b8;
+  box-shadow: none;
+}
+
+.status-indicator {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid #0f172a;
+}
+
+.status-indicator.online {
+  background-color: #10b981;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
+}
+
+.status-indicator.offline {
+  background-color: #64748b;
+}
+
+.user-text-info {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  flex: 1;
+}
+
+.user-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #f1f5f9;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.user-role {
+  font-size: 0.725rem;
+  color: #94a3b8;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.text-sky {
+  color: #38bdf8 !important;
+  font-weight: 500;
+}
+
+.switch-icon {
+  font-size: 0.85rem;
+  color: #64748b;
+  flex-shrink: 0;
+}
+
+/* Switcher Popover Menu */
+/* ── Header variant: compact trigger ─────────────────── */
+.header-user-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  padding: 0.45rem 0.8rem 0.45rem 0.55rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  color: #0f172a;
+  transition: all 0.18s ease;
+  font-family: inherit;
+  text-align: left;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.header-user-trigger:hover {
+  background-color: #f1f5f9;
+  border-color: #cbd5e1;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.07);
+}
+
+.header-avatar-wrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.header-avatar-wrapper .user-avatar {
+  width: 30px;
+  height: 30px;
+  font-size: 0.75rem;
+  box-shadow: none;
+}
+
+.header-avatar-wrapper .status-indicator {
+  border-color: #f8fafc;
+  width: 8px;
+  height: 8px;
+}
+
+.header-avatar-wrapper .status-indicator.online {
+  background-color: #10b981;
+}
+
+.header-avatar-wrapper .status-indicator.offline {
+  background-color: #94a3b8;
+}
+
+.header-user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.header-user-name {
+  font-size: 0.825rem;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.header-user-role {
+  font-size: 0.7rem;
+  color: #64748b;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
+.chevron-icon {
+  font-size: 0.7rem;
+  color: #94a3b8;
+  flex-shrink: 0;
+  margin-left: 0.1rem;
+}
+
+/* ── Shared Dropdown Popover ─────────────────────────── */
+.user-dropdown-menu {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 0;
+  width: 260px;
+  right: 0;
+  left: auto;
+  min-width: 245px;
+  background-color: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+  padding: 0.75rem;
+  z-index: 100;
+  z-index: 200;
+  animation: popIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Header variant: open downward */
+.user-dropdown-menu.opens-down {
+  bottom: auto;
+  top: calc(100% + 10px);
+  right: 0;
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.dropdown-header {
+  padding: 0.35rem 0.5rem 0.65rem 0.5rem;
+  border-bottom: 1px solid #1e293b;
+  margin-bottom: 0.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-heading {
+  font-size: 0.825rem;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.dropdown-sub {
+  font-size: 0.7rem;
+  color: #94a3b8;
+}
+
+.dropdown-user-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.dropdown-user-item {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  background: none;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #cbd5e1;
+  text-align: left;
+  transition: all 0.12s ease;
+  font-family: inherit;
+}
+
+.dropdown-user-item:hover {
+  background-color: #1e293b;
+  color: #ffffff;
+}
+
+.dropdown-user-item.selected {
+  background-color: #1e293b;
+  color: #38bdf8;
+}
+
+.dropdown-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: #2563eb;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.dropdown-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+.dropdown-name {
+  font-size: 0.825rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dropdown-role {
+  font-size: 0.7rem;
+  color: #94a3b8;
+}
+
+.checkmark {
+  color: #38bdf8;
+  font-weight: bold;
+  font-size: 0.85rem;
+}
+
+.dropdown-footer {
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid #1e293b;
+}
+
+.btn-signout {
+  width: 100%;
+  background: none;
+  border: 1px solid #334155;
+  color: #f87171;
+  padding: 0.4rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.btn-signout:hover {
+  background-color: rgba(239, 68, 68, 0.1);
+  border-color: #ef4444;
+}
+
