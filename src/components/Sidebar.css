@@ -1,12 +1,12 @@
 .sidebar {
   width: 240px;
   min-width: 240px;
-  background-color: #f8fafc;
+  background: linear-gradient(180deg, #3f454b 0%, #292e33 52%, #1f2428 100%);
   border-right: 1px solid #e2e8f0;
-  color: #0f172a;
+  color: #ffffff;
   display: flex;
   flex-direction: column;
-  padding: 1.25rem 0.85rem;
+  padding: 0 0.85rem 1.25rem;
   box-sizing: border-box;
   height: 100vh;
   position: sticky;
@@ -17,7 +17,9 @@
   display: flex;
   align-items: center;
   gap: 0.65rem;
-  padding: 0 0.45rem 1.25rem;
+  min-height: 84px;
+  padding: 0 0.45rem;
+  box-sizing: border-box;
   border-bottom: 1px solid #e2e8f0;
   margin-bottom: 1.25rem;
 }
@@ -35,6 +37,7 @@
   display: block;
   width: 44px;
   height: auto;
+  filter: brightness(0) invert(1);
 }
 
 .brand-info {
@@ -46,7 +49,7 @@
 .brand-name {
   font-size: 0.83rem;
   font-weight: 700;
-  color: #0f172a;
+  color: #ffffff;
   margin: 0;
   line-height: 1.25;
   letter-spacing: -0.01em;
@@ -67,7 +70,7 @@
 .nav-group-label {
   font-size: 0.675rem;
   font-weight: 700;
-  color: #64748b;
+  color: rgba(255, 255, 255, 0.62);
   letter-spacing: 0.1em;
   padding: 0 0.75rem 0.5rem 0.75rem;
 }
@@ -89,14 +92,15 @@
   width: 100%;
   text-align: left;
   background: none;
-  border: none;
-  color: #475569;
+  border: 1px solid transparent;
+  color: #ffffff;
   font-size: 0.875rem;
   font-weight: 600;
   padding: 0.65rem 0.8rem;
-  border-radius: 8px;
+  border-radius: 14px;
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: background-color 0.24s ease, border-color 0.24s ease, color 0.24s ease,
+    box-shadow 0.24s ease, transform 0.24s cubic-bezier(0.16, 1, 0.3, 1);
   box-sizing: border-box;
   font-family: inherit;
   display: flex;
@@ -108,7 +112,7 @@
   width: 18px;
   height: 18px;
   flex-shrink: 0;
-  stroke: #64748b;
+  stroke: #ffffff;
   transition: all 0.2s ease;
 }
 
@@ -141,26 +145,29 @@
   to { opacity: 1; transform: translateX(0); }
 }
 
-.sidebar-link:hover {
-  background-color: #eef2f7;
-  color: #0f172a;
+.sidebar-link:not(.active):hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  transform: translateX(3px);
 }
 
-.sidebar-link:hover .nav-svg-icon {
-  stroke: #38bdf8;
+.sidebar-link:not(.active):hover .nav-svg-icon {
+  stroke: #ffffff;
   transform: scale(1.1);
 }
 
 .sidebar-link.active {
-  background: #eaf3ff;
-  color: #1d4ed8;
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
   font-weight: 600;
-  box-shadow: inset 3px 0 0 #38bdf8;
-  border: 1px solid #bfdbfe;
+  box-shadow: none;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  transform: none;
 }
 
 .sidebar-link.active .nav-svg-icon {
-  stroke: #38bdf8;
+  stroke: #ffffff;
 }
 
 .sidebar-footer {
@@ -176,14 +183,15 @@
   width: 100%;
   text-align: left;
   background: none;
-  border: none;
-  color: #475569;
+  border: 1px solid transparent;
+  color: #ffffff;
   font-size: 0.875rem;
   font-weight: 600;
   padding: 0.65rem 0.8rem;
-  border-radius: 8px;
+  border-radius: 14px;
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: background-color 0.24s ease, border-color 0.24s ease, color 0.24s ease,
+    box-shadow 0.24s ease, transform 0.24s cubic-bezier(0.16, 1, 0.3, 1);
   box-sizing: border-box;
   font-family: inherit;
   display: flex;
@@ -192,23 +200,25 @@
 }
 
 .guide-terms-btn:hover {
-  background-color: #eef2f7;
-  color: #0f172a;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.16);
+  transform: translateX(3px);
 }
 
 .guide-terms-btn:hover .nav-svg-icon {
-  stroke: #38bdf8;
+  stroke: #ffffff;
   transform: scale(1.1);
 }
 
 .footer-version {
   font-size: 0.65rem;
   font-weight: 700;
-  color: #94a3b8;
+  color: rgba(255, 255, 255, 0.62);
   letter-spacing: 0.08em;
   margin-bottom: 0.6rem;
   padding: 0 0.25rem;
-  color: #94a3b8;
+  color: rgba(255, 255, 255, 0.62);
   text-align: center;
   padding: 0.25rem 0 0;
   letter-spacing: 0.04em;

@@ -2,7 +2,9 @@
 
 :root {
   --font-primary: 'Poppins', sans-serif;
-  --font-secondary: 'Manrope', sans-serif;
+  --action-hover-bg: #fff8ef;
+  --action-hover-border: #f3b56b;
+  --action-hover-text: #c27624;
   font-family: var(--font-primary);
   line-height: 1.5;
   font-weight: 400;
@@ -25,6 +27,9 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background-color: #f1f5f9;
+  background-image: url('/equipment-pattern.svg');
+  background-repeat: repeat;
+  background-size: 180px 180px;
   overflow-x: hidden;
   font-family: var(--font-primary);
 }

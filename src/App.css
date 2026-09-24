@@ -2,7 +2,7 @@
   display: flex;
   min-height: 100vh;
   width: 100%;
-  background: #f1f5f9;
+  background: transparent;
 }
 
 .main-wrapper {
@@ -12,6 +12,7 @@
   min-width: 0;
   height: 100vh;
   overflow-y: auto;
+  background: rgba(241, 245, 249, 0.72);
 }
 
 .main-content {

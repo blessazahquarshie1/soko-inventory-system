@@ -21,12 +21,14 @@
 .inventory-controls {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.6rem;
+  position: relative;
 }
 
 .search-input {
-  padding: 0.75rem 1.15rem;
-  border-radius: 10px;
+  min-height: 40px;
+  padding: 0.45rem 0.9rem;
+  border-radius: 14px;
   border: 1px solid #cbd5e1;
   background-color: #ffffff;
   color: #0f172a;
@@ -42,6 +44,90 @@
   outline: none;
   border-color: #2563eb;
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.inventory-filter-wrap {
+  position: relative;
+}
+
+.inventory-filter-button {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 0.8rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  background: #ffffff;
+  color: #334155;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.18s ease, background-color 0.18s ease, color 0.18s ease;
+}
+
+.inventory-filter-button:hover,
+.inventory-filter-button.active {
+  background: #fff8ef;
+  border-color: #f3b56b;
+  color: #c27624;
+}
+
+.inventory-filter-button svg:last-child {
+  font-size: 0.75rem;
+}
+
+.inventory-filter-menu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  z-index: 20;
+  width: 220px;
+  padding: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
+}
+
+.inventory-filter-menu label {
+  margin-top: 0.25rem;
+  color: #64748b;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.inventory-filter-menu select {
+  min-height: 36px;
+  padding: 0.4rem 0.55rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #1e293b;
+  font-size: 0.78rem;
+}
+
+.inventory-filter-clear {
+  margin-top: 0.4rem;
+  min-height: 34px;
+  border: 0;
+  border-radius: 12px;
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.inventory-filter-clear:hover {
+  background: var(--action-hover-bg);
+  color: var(--action-hover-text);
+  border: 1px solid var(--action-hover-border);
 }
 
 .category-filters {
@@ -65,9 +151,9 @@
 }
 
 .category-pill:hover {
-  background-color: #f1f5f9;
-  color: #0f172a;
-  border-color: #cbd5e1;
+  background-color: var(--action-hover-bg);
+  color: var(--action-hover-text);
+  border-color: var(--action-hover-border);
   transform: translateY(-1px);
 }
 
@@ -128,8 +214,9 @@
   background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
   border: 1px solid #cbd5e1;
   color: #1e293b;
-  padding: 0.45rem 0.95rem;
-  border-radius: 8px;
+  min-height: 36px;
+  padding: 0.35rem 0.8rem;
+  border-radius: 14px;
   font-size: 0.825rem;
   font-weight: 600;
   cursor: pointer;
@@ -138,11 +225,11 @@
 }
 
 .btn-table-action:hover:not(:disabled) {
-  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-  color: #ffffff;
-  border-color: #2563eb;
+  background: var(--action-hover-bg);
+  color: var(--action-hover-text);
+  border-color: var(--action-hover-border);
   transform: translateY(-1px);
-  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
+  box-shadow: 0 4px 10px rgba(243, 181, 107, 0.25);
 }
 
 .btn-table-action:disabled {

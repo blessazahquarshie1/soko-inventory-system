@@ -85,7 +85,7 @@
   border: 1px solid #e2e8f0;
   width: 32px;
   height: 32px;
-  border-radius: 8px;
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -97,9 +97,9 @@
 }
 
 .guide-close-btn:hover {
-  background-color: #f1f5f9;
-  color: #0f172a;
-  border-color: #cbd5e1;
+  background-color: var(--action-hover-bg);
+  color: var(--action-hover-text);
+  border-color: var(--action-hover-border);
 }
 
 /* Scrollable body */
@@ -198,8 +198,9 @@
   background: linear-gradient(135deg, #2563eb, #1d4ed8);
   color: #ffffff;
   border: none;
-  padding: 0.65rem 1.5rem;
-  border-radius: 8px;
+  min-height: 40px;
+  padding: 0.5rem 1.15rem;
+  border-radius: 16px;
   font-size: 0.875rem;
   font-weight: 700;
   cursor: pointer;
@@ -209,8 +210,10 @@
 }
 
 .btn-understood:hover {
-  background: linear-gradient(135deg, #1d4ed8, #1e40af);
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.45);
+  background: var(--action-hover-bg);
+  color: var(--action-hover-text);
+  border: 1px solid var(--action-hover-border);
+  box-shadow: 0 4px 12px rgba(243, 181, 107, 0.3);
   transform: translateY(-1px);
 }
 

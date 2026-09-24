@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { FiChevronDown, FiFilter } from 'react-icons/fi'
 import type { InventoryItem } from '../types/inventory'
 import './Inventory.css'
 
@@ -10,6 +11,8 @@ interface InventoryProps {
 export function Inventory({ inventory, onBorrowItem }: InventoryProps) {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string>('All')
+  const [selectedStockStatus, setSelectedStockStatus] = useState<string>('All')
+  const [isFilterOpen, setIsFilterOpen] = useState(false)
 
   // Extract unique categories
   const categories = ['All', ...Array.from(new Set(inventory.map((item) => item.category)))]
@@ -20,7 +23,14 @@ export function Inventory({ inventory, onBorrowItem }: InventoryProps) {
       item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.category.toLowerCase().includes(searchTerm.toLowerCase())
     const matchesCategory = selectedCategory === 'All' || item.category === selectedCategory
-    return matchesSearch && matchesCategory
+    const matchesStockStatus =
+      selectedStockStatus === 'All' ||
+      (selectedStockStatus === 'Available' && item.availableQuantity === item.totalQuantity) ||
+      (selectedStockStatus === 'In use' &&
+        item.availableQuantity > 0 &&
+        item.availableQuantity < item.totalQuantity) ||
+      (selectedStockStatus === 'All borrowed' && item.availableQuantity === 0)
+    return matchesSearch && matchesCategory && matchesStockStatus
   })
 
   // Helper to determine inventory stock status
@@ -53,21 +63,57 @@ export function Inventory({ inventory, onBorrowItem }: InventoryProps) {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-        </div>
-      </div>
+          <div className="inventory-filter-wrap">
+            <button
+              type="button"
+              className={`inventory-filter-button ${isFilterOpen ? 'active' : ''}`}
+              onClick={() => setIsFilterOpen((open) => !open)}
+              aria-expanded={isFilterOpen}
+              aria-haspopup="true"
+            >
+              <FiFilter aria-hidden="true" />
+              Filter
+              <FiChevronDown aria-hidden="true" />
+            </button>
+            {isFilterOpen && (
+              <div className="inventory-filter-menu">
+                <label htmlFor="inventory-category-filter">Category</label>
+                <select
+                  id="inventory-category-filter"
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                >
+                  {categories.map((category) => (
+                    <option key={category} value={category}>{category}</option>
+                  ))}
+                </select>
 
-      {/* Category Pills */}
-      <div className="category-filters">
-        {categories.map((category) => (
-          <button
-            key={category}
-            type="button"
-            className={`category-pill ${selectedCategory === category ? 'active' : ''}`}
-            onClick={() => setSelectedCategory(category)}
-          >
-            {category}
-          </button>
-        ))}
+                <label htmlFor="inventory-stock-filter">Stock status</label>
+                <select
+                  id="inventory-stock-filter"
+                  value={selectedStockStatus}
+                  onChange={(e) => setSelectedStockStatus(e.target.value)}
+                >
+                  <option value="All">All statuses</option>
+                  <option value="Available">Fully available</option>
+                  <option value="In use">In use</option>
+                  <option value="All borrowed">All borrowed</option>
+                </select>
+
+                <button
+                  type="button"
+                  className="inventory-filter-clear"
+                  onClick={() => {
+                    setSelectedCategory('All')
+                    setSelectedStockStatus('All')
+                  }}
+                >
+                  Clear filters
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
 
       {/* Equipment Table */}

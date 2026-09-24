@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { FiArrowRight, FiCheck, FiChevronDown, FiRepeat } from 'react-icons/fi'
+import { FiCheck } from 'react-icons/fi'
 import type { UserProfile as UserProfileType } from '../types/inventory'
 import './UserProfile.css'
 
@@ -8,6 +8,13 @@ interface UserProfileProps {
   users: UserProfileType[]
   onSelectUser: (user: UserProfileType | null) => void
   variant?: 'sidebar' | 'header'
+}
+
+const avatarSources: Record<string, string> = {
+  'user-1': '/avatars/kwame.svg',
+  'user-2': '/avatars/ama.svg',
+  'user-3': '/avatars/kofi.svg',
+  'user-4': '/avatars/nana.svg',
 }
 
 export function UserProfile({
@@ -35,7 +42,7 @@ export function UserProfile({
       {isOpen && (
         <div className={`user-dropdown-menu ${variant === 'header' ? 'opens-down' : ''}`}>
           <div className="dropdown-header">
-            <span className="dropdown-heading">Switch Demo Profile</span>
+            <span className="dropdown-heading">Switch Profile</span>
             <span className="dropdown-sub">Choose the active lab member</span>
           </div>
           <div className="dropdown-user-list">
@@ -49,7 +56,7 @@ export function UserProfile({
                   setIsOpen(false)
                 }}
               >
-                <div className="dropdown-avatar">{user.avatarInitials}</div>
+                <img className="dropdown-avatar" src={avatarSources[user.id]} alt="" />
                 <div className="dropdown-info">
                   <span className="dropdown-name">{user.name}</span>
                   <span className="dropdown-role">{user.role}</span>
@@ -84,7 +91,9 @@ export function UserProfile({
         >
           <div className="header-avatar-wrapper">
             <div className={`user-avatar ${!currentUser ? 'guest' : ''}`}>
-              {currentUser?.avatarInitials ?? '?'}
+              {currentUser ? (
+                <img src={avatarSources[currentUser.id]} alt="" />
+              ) : '?'}
             </div>
             <span className={`status-indicator ${currentUser ? 'online' : 'offline'}`} />
           </div>
@@ -92,7 +101,6 @@ export function UserProfile({
             <span className="header-user-name">{currentUser?.name ?? 'Guest User'}</span>
             <span className="header-user-role">{currentUser?.role ?? 'Click to sign in'}</span>
           </div>
-          <FiChevronDown className="chevron-icon" aria-hidden="true" />
         </button>
       ) : (
         <button
@@ -103,7 +111,9 @@ export function UserProfile({
         >
           <div className="avatar-wrapper">
             <div className={`user-avatar ${!currentUser ? 'guest' : ''}`}>
-              {currentUser?.avatarInitials ?? '?'}
+              {currentUser ? (
+                <img src={avatarSources[currentUser.id]} alt="" />
+              ) : '?'}
             </div>
             <span className={`status-indicator ${currentUser ? 'online' : 'offline'}`} />
           </div>
@@ -113,7 +123,6 @@ export function UserProfile({
               {currentUser?.role ?? 'Click to Sign In'}
             </span>
           </div>
-          {currentUser ? <FiRepeat className="switch-icon" aria-hidden="true" /> : <FiArrowRight className="switch-icon" aria-hidden="true" />}
         </button>
       )}
     </div>

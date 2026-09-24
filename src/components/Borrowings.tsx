@@ -2,6 +2,12 @@ import { useState } from 'react'
 import type { InventoryItem, BorrowRecord } from '../types/inventory'
 import './Borrowings.css'
 
+function getTomorrowDate(): string {
+  const tomorrow = new Date()
+  tomorrow.setDate(tomorrow.getDate() + 1)
+  return tomorrow.toISOString().slice(0, 10)
+}
+
 interface BorrowingsProps {
   inventory: InventoryItem[]
   borrowings: BorrowRecord[]
@@ -24,7 +30,7 @@ export function Borrowings({
   const [borrowerName, setBorrowerName] = useState('')
   const [userSelectedId, setUserSelectedId] = useState<string | null>(null)
   const [quantity, setQuantity] = useState(1)
-  const [expectedReturnDate, setExpectedReturnDate] = useState('2026-09-18')
+  const [expectedReturnDate, setExpectedReturnDate] = useState(getTomorrowDate)
   const [feedbackMessage, setFeedbackMessage] = useState<string | null>(null)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 

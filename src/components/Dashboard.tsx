@@ -3,6 +3,7 @@ import {
   FiAlertTriangle,
   FiCalendar,
   FiCheckCircle,
+  FiCornerUpLeft,
   FiPackage,
   FiPlus,
   FiRefreshCw,
@@ -77,38 +78,37 @@ export function Dashboard({
   return (
     <div className="dashboard-container">
       <div className={`greeting-banner banner-${greetingVariant}`}>
-        <div className="greeting-left">
-          <div className="greeting-avatar">{currentUser?.avatarInitials ?? '?'}</div>
-          <div className="greeting-text">
-            <h2 className="greeting-headline">
-              {getGreeting()}, <span className="greeting-name">
-                {currentUser?.name.split(' ')[0] ?? 'guest'}!
-              </span>
-            </h2>
-            <p className="greeting-role">
-              {currentUser?.role ?? 'Sign in to see your borrowed items and due dates.'}
-            </p>
+          <div className="greeting-left">
+            <div className="greeting-text">
+              <h2 className="greeting-headline">
+                {getGreeting()}, <span className="greeting-name">
+                  {currentUser?.name.split(' ')[0] ?? 'guest'}!
+                </span>
+              </h2>
+              <p className="greeting-role">
+                {currentUser?.role ?? 'Sign in to see your borrowed items and due dates.'}
+              </p>
+            </div>
           </div>
-        </div>
-        <div className="greeting-alert">
-          {myOverdueLoans.length > 0 && (
-            <div className="alert-chip chip-danger">
-              <FiAlertTriangle aria-hidden="true" /> {myOverdueLoans.length} overdue item{myOverdueLoans.length === 1 ? '' : 's'} — return soon
-            </div>
-          )}
-          {myOverdueLoans.length === 0 && myActiveLoans.length > 0 && (
-            <div className="alert-chip chip-warning">
-              <FiCalendar aria-hidden="true" /> {myActiveLoans.length} active loan{myActiveLoans.length === 1 ? '' : 's'}
-            </div>
-          )}
-          {currentUser && myActiveLoans.length === 0 && (
-            <div className="alert-chip chip-success"><FiCheckCircle aria-hidden="true" /> No active loans — all clear!</div>
-          )}
-        </div>
+          <div className="greeting-alert">
+            {myOverdueLoans.length > 0 && (
+              <div className="alert-chip chip-danger">
+                <FiAlertTriangle aria-hidden="true" /> {myOverdueLoans.length} overdue item{myOverdueLoans.length === 1 ? '' : 's'} — return soon
+              </div>
+            )}
+            {myOverdueLoans.length === 0 && myActiveLoans.length > 0 && (
+              <div className="alert-chip chip-warning">
+                <FiCalendar aria-hidden="true" /> {myActiveLoans.length} active loan{myActiveLoans.length === 1 ? '' : 's'}
+              </div>
+            )}
+            {currentUser && myActiveLoans.length === 0 && (
+              <div className="alert-chip chip-success"><FiCheckCircle aria-hidden="true" /> No active loans — all clear!</div>
+            )}
+          </div>
       </div>
 
-      {currentUser && myActiveLoans.length > 0 && (
-        <div className="my-loans-card">
+        {currentUser && myActiveLoans.length > 0 && (
+          <div className="my-loans-card">
           <div className="my-loans-header">
             <div>
               <h3 className="my-loans-title">Items in your possession</h3>
@@ -120,48 +120,53 @@ export function Dashboard({
           </div>
           <div className="my-loans-list">
             {myActiveLoans.map((loan) => (
-              <div key={loan.id} className={`my-loan-row ${loan.status === 'Overdue' ? 'loan-overdue' : ''}`}>
+              <div key={loan.id} className={`my-loan-row ${loan.status === 'Overdue' ? 'loan-overdue' : 'loan-active'}`}>
                 <div className="loan-item-info">
                   <span className="loan-item-name">{loan.itemName}</span>
                   <span className="loan-item-qty">×{loan.quantity}</span>
                 </div>
                 <div className="loan-due-info">
-                  <span className="loan-due-label">Due:</span>
-                  <span className={`loan-due-date ${loan.status === 'Overdue' ? 'due-overdue' : ''}`}>
-                    {loan.expectedReturnDate}
-                  </span>
+                  <div className="loan-due-summary">
+                    <span className="loan-due-label">Due:</span>
+                    <span className={`loan-due-date ${loan.status === 'Overdue' ? 'due-overdue' : ''}`}>
+                      {loan.expectedReturnDate}
+                    </span>
+                  </div>
                   {loan.status === 'Overdue' && <span className="loan-overdue-chip">OVERDUE</span>}
                   {onReturn && (
                     <button
                       type="button"
                       className="loan-return-button"
                       onClick={() => onReturn(loan.id)}
+                      aria-label={`Return ${loan.itemName}`}
+                      title="Return item"
                     >
-                      Return item
+                      <FiCornerUpLeft aria-hidden="true" />
                     </button>
                   )}
                 </div>
               </div>
             ))}
           </div>
-        </div>
-      )}
-
-      <div className="dashboard-welcome">
-        <div>
-          <h2 className="section-title">Inventory overview</h2>
-          <p className="section-subtitle">
-            Real-time status of lab hardware and active equipment loans.
-          </p>
-        </div>
-        {onNavigateToBorrow && (
-          <button type="button" className="btn-primary" onClick={onNavigateToBorrow}>
-            <FiPlus aria-hidden="true" /> Borrow equipment
-          </button>
+          </div>
         )}
-      </div>
 
-      <div className="stats-grid">
+      <section className="inventory-overview-section">
+        <div className="dashboard-welcome">
+          <div>
+            <h2 className="section-title">Inventory overview</h2>
+            <p className="section-subtitle">
+              Real-time status of lab hardware and active equipment loans.
+            </p>
+          </div>
+          {onNavigateToBorrow && (
+            <button type="button" className="btn-primary" onClick={onNavigateToBorrow}>
+              <FiPlus aria-hidden="true" /> Borrow equipment
+            </button>
+          )}
+        </div>
+
+        <div className="stats-grid">
         <div className="stat-card">
           <div className="stat-header"><span className="stat-title">Total items</span><span className="stat-icon"><FiPackage aria-hidden="true" /></span></div>
           <div className="stat-value">{totalItems}</div>
@@ -182,8 +187,7 @@ export function Dashboard({
           <div className="stat-value text-rose">{overdueItems}</div>
           <div className="stat-description">Action required</div>
         </div>
-      </div>
-
+        </div>
       <div className="dashboard-table-card">
         <div className="table-card-header">
           <h3 className="card-title">Recent equipment &amp; loan status</h3>
@@ -218,6 +222,7 @@ export function Dashboard({
           </table>
         </div>
       </div>
+      </section>
     </div>
   )
 }
