@@ -1,12 +1,13 @@
 import type { BorrowRecord, InventoryItem, UserProfile } from '../types/inventory'
 import {
+  FiAlertOctagon,
   FiAlertTriangle,
   FiCalendar,
   FiCheckCircle,
   FiCornerUpLeft,
-  FiPackage,
+  FiBox,
   FiPlus,
-  FiRefreshCw,
+  FiRepeat,
 } from 'react-icons/fi'
 import './Dashboard.css'
 
@@ -168,23 +169,23 @@ export function Dashboard({
 
         <div className="stats-grid">
         <div className="stat-card">
-          <div className="stat-header"><span className="stat-title">Total items</span><span className="stat-icon"><FiPackage aria-hidden="true" /></span></div>
+          <div className="stat-header"><span className="stat-title">Total items</span><span className="stat-icon"><FiBox aria-hidden="true" /></span></div>
           <div className="stat-value">{totalItems}</div>
           <div className="stat-description">Hardware units in lab</div>
         </div>
         <div className="stat-card stat-card-available">
           <div className="stat-header"><span className="stat-title">Available</span><span className="stat-icon"><FiCheckCircle aria-hidden="true" /></span></div>
-          <div className="stat-value text-emerald">{availableItems}</div>
+          <div className="stat-value">{availableItems}</div>
           <div className="stat-description">Ready for deployment</div>
         </div>
         <div className="stat-card stat-card-borrowed">
-          <div className="stat-header"><span className="stat-title">Currently borrowed</span><span className="stat-icon"><FiRefreshCw aria-hidden="true" /></span></div>
-          <div className="stat-value text-sky">{currentlyBorrowed}</div>
+          <div className="stat-header"><span className="stat-title">Currently borrowed</span><span className="stat-icon"><FiRepeat aria-hidden="true" /></span></div>
+          <div className="stat-value">{currentlyBorrowed}</div>
           <div className="stat-description">Checked out by members</div>
         </div>
         <div className="stat-card stat-card-overdue">
-          <div className="stat-header"><span className="stat-title">Overdue</span><span className="stat-icon"><FiAlertTriangle aria-hidden="true" /></span></div>
-          <div className="stat-value text-rose">{overdueItems}</div>
+          <div className="stat-header"><span className="stat-title">Overdue</span><span className="stat-icon"><FiAlertOctagon aria-hidden="true" /></span></div>
+          <div className="stat-value">{overdueItems}</div>
           <div className="stat-description">Action required</div>
         </div>
         </div>

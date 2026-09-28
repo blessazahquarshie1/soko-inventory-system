@@ -21,16 +21,17 @@ function formatCurrentDateTime(): string {
   })
 }
 
-function formatDisplayDate(dateStr: string): string {
+function formatDisplayDate(dateStr: string, timeStr: string): string {
   if (!dateStr) return '—'
-  if (dateStr.includes('Sep') || dateStr.includes(':')) return dateStr
   const parts = dateStr.split('-')
   if (parts.length === 3) {
     const year = parseInt(parts[0], 10)
     const month = parseInt(parts[1], 10) - 1
     const day = parseInt(parts[2], 10)
-    const date = new Date(year, month, day, 17, 0)
-    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + ', 5:00 PM'
+    const [hours, minutes] = timeStr.split(':').map(Number)
+    const date = new Date(year, month, day, hours || 0, minutes || 0)
+    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + ', ' +
+      date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })
   }
   return dateStr
 }
@@ -39,17 +40,19 @@ function App() {
   const [activeTab, setActiveTab] = useState<TabType>('Dashboard')
   const [inventory, setInventory] = useState<InventoryItem[]>(INITIAL_INVENTORY)
   const [borrowings, setBorrowings] = useState<BorrowRecord[]>(INITIAL_BORROWINGS)
+  const [users, setUsers] = useState<UserProfile[]>(DEMO_USERS)
   const [currentUser, setCurrentUser] = useState<UserProfile | null>(DEMO_USERS[0])
   const [preselectedItemId, setPreselectedItemId] = useState<string | undefined>(undefined)
   const [isGuideTermsOpen, setIsGuideTermsOpen] = useState(false)
 
   // Borrow action: decrements available inventory & registers active borrowing
   const handleBorrow = (
-    borrowerName: string,
     itemId: string,
     quantity: number,
-    expectedReturn: string
+    expectedReturnDate: string,
+    expectedReturnTime: string
   ) => {
+    if (!currentUser) return
     const item = inventory.find((i) => i.id === itemId)
     if (!item || item.availableQuantity < quantity) return
 
@@ -57,10 +60,10 @@ function App() {
       id: `borrow-${Date.now()}`,
       itemId,
       itemName: item.name,
-      borrowerName,
+      borrowerName: currentUser.name,
       quantity,
       takenDate: formatCurrentDateTime(),
-      expectedReturnDate: formatDisplayDate(expectedReturn),
+      expectedReturnDate: formatDisplayDate(expectedReturnDate, expectedReturnTime),
       status: 'Borrowed',
     }
 
@@ -80,7 +83,9 @@ function App() {
   // Return action: increments available inventory & updates borrowing status
   const handleReturn = (borrowingId: string) => {
     const borrowing = borrowings.find((b) => b.id === borrowingId)
-    if (!borrowing || borrowing.status === 'Returned') return
+    const canReturn = currentUser?.role === 'Administrator' || borrowing?.borrowerName === currentUser?.name
+    if (!borrowing || borrowing.status === 'Returned' || !canReturn) return
+    if (!window.confirm(`Mark ${borrowing.itemName} as returned?`)) return
 
     // Restore item availability in inventory
     setInventory((prev) =>
@@ -121,6 +126,33 @@ function App() {
     setPreselectedItemId(undefined)
   }
 
+  const isAdmin = currentUser?.role === 'Administrator'
+
+  const handleAddItem = (item: Omit<InventoryItem, 'id' | 'availableQuantity'>) => {
+    if (!isAdmin) return
+    setInventory((previous) => [
+      ...previous,
+      { ...item, id: `item-${Date.now()}`, availableQuantity: item.totalQuantity },
+    ])
+  }
+
+  const handleUpdateItem = (updatedItem: InventoryItem) => {
+    if (!isAdmin) return
+    setInventory((previous) => previous.map((item) => item.id === updatedItem.id ? updatedItem : item))
+  }
+
+  const handleDeleteItem = (itemId: string) => {
+    if (!isAdmin || borrowings.some((borrowing) => borrowing.itemId === itemId && borrowing.status !== 'Returned')) return
+    setInventory((previous) => previous.filter((item) => item.id !== itemId))
+  }
+
+  const handleDeleteUser = (userId: string) => {
+    if (!isAdmin || userId === currentUser?.id) return
+    const user = users.find((candidate) => candidate.id === userId)
+    if (!user || !window.confirm(`Remove ${user.name} from the lab profiles?`)) return
+    setUsers((previous) => previous.filter((user) => user.id !== userId))
+  }
+
   return (
     <div className="app-container">
       {/* Sidebar Navigation & User Profile */}
@@ -137,7 +169,7 @@ function App() {
       <div className="main-wrapper">
         <Header
           currentUser={currentUser}
-          users={DEMO_USERS}
+          users={users}
           onSelectUser={handleSelectUser}
         />
 
@@ -155,6 +187,12 @@ function App() {
           {activeTab === 'Inventory' && (
             <Inventory
               inventory={inventory}
+              currentUser={currentUser}
+              users={users}
+              onAddItem={handleAddItem}
+              onUpdateItem={handleUpdateItem}
+              onDeleteItem={handleDeleteItem}
+              onDeleteUser={handleDeleteUser}
               onBorrowItem={(id) => handleNavigateToBorrow(id)}
             />
           )}
@@ -163,6 +201,7 @@ function App() {
             <Borrowings
               inventory={inventory}
               borrowings={borrowings}
+              currentUser={currentUser}
               initialItemId={preselectedItemId}
               onBorrow={handleBorrow}
               onReturn={handleReturn}

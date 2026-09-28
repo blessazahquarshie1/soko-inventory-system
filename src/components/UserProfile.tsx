@@ -56,7 +56,9 @@ export function UserProfile({
                   setIsOpen(false)
                 }}
               >
-                <img className="dropdown-avatar" src={avatarSources[user.id]} alt="" />
+                <div className="dropdown-avatar">
+                  {avatarSources[user.id] ? <img src={avatarSources[user.id]} alt="" /> : user.avatarInitials}
+                </div>
                 <div className="dropdown-info">
                   <span className="dropdown-name">{user.name}</span>
                   <span className="dropdown-role">{user.role}</span>
@@ -92,7 +94,7 @@ export function UserProfile({
           <div className="header-avatar-wrapper">
             <div className={`user-avatar ${!currentUser ? 'guest' : ''}`}>
               {currentUser ? (
-                <img src={avatarSources[currentUser.id]} alt="" />
+                avatarSources[currentUser.id] ? <img src={avatarSources[currentUser.id]} alt="" /> : currentUser.avatarInitials
               ) : '?'}
             </div>
             <span className={`status-indicator ${currentUser ? 'online' : 'offline'}`} />
@@ -112,7 +114,7 @@ export function UserProfile({
           <div className="avatar-wrapper">
             <div className={`user-avatar ${!currentUser ? 'guest' : ''}`}>
               {currentUser ? (
-                <img src={avatarSources[currentUser.id]} alt="" />
+                avatarSources[currentUser.id] ? <img src={avatarSources[currentUser.id]} alt="" /> : currentUser.avatarInitials
               ) : '?'}
             </div>
             <span className={`status-indicator ${currentUser ? 'online' : 'offline'}`} />

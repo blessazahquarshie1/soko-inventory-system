@@ -1,6 +1,13 @@
 import { useState } from 'react'
-import type { InventoryItem, BorrowRecord } from '../types/inventory'
+import type { InventoryItem, BorrowRecord, UserProfile } from '../types/inventory'
 import './Borrowings.css'
+
+const avatarSources: Record<string, string> = {
+  'user-1': '/avatars/kwame.svg',
+  'user-2': '/avatars/ama.svg',
+  'user-3': '/avatars/kofi.svg',
+  'user-4': '/avatars/nana.svg',
+}
 
 function getTomorrowDate(): string {
   const tomorrow = new Date()
@@ -12,7 +19,8 @@ interface BorrowingsProps {
   inventory: InventoryItem[]
   borrowings: BorrowRecord[]
   initialItemId?: string
-  onBorrow: (borrowerName: string, itemId: string, quantity: number, expectedReturn: string) => void
+  currentUser: UserProfile | null
+  onBorrow: (itemId: string, quantity: number, expectedReturnDate: string, expectedReturnTime: string) => void
   onReturn: (borrowingId: string) => void
 }
 
@@ -20,6 +28,7 @@ export function Borrowings({
   inventory,
   borrowings,
   initialItemId,
+  currentUser,
   onBorrow,
   onReturn,
 }: BorrowingsProps) {
@@ -27,10 +36,10 @@ export function Borrowings({
   const availableInventory = inventory.filter((item) => item.availableQuantity > 0)
 
   // Form state
-  const [borrowerName, setBorrowerName] = useState('')
   const [userSelectedId, setUserSelectedId] = useState<string | null>(null)
   const [quantity, setQuantity] = useState(1)
   const [expectedReturnDate, setExpectedReturnDate] = useState(getTomorrowDate)
+  const [expectedReturnTime, setExpectedReturnTime] = useState('17:00')
   const [feedbackMessage, setFeedbackMessage] = useState<string | null>(null)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
@@ -58,11 +67,8 @@ export function Borrowings({
     setFeedbackMessage(null)
     setErrorMessage(null)
 
-    const enteredName = borrowerName.trim()
-
-    // Must be explicitly entered by the user
-    if (!enteredName) {
-      setErrorMessage("Please enter the borrower's name.")
+    if (!currentUser) {
+      setErrorMessage('Please sign in before borrowing equipment.')
       return
     }
 
@@ -84,12 +90,11 @@ export function Borrowings({
     }
 
     // Process borrowing
-    onBorrow(enteredName, selectedItemId, quantity, expectedReturnDate)
+    onBorrow(selectedItemId, quantity, expectedReturnDate, expectedReturnTime)
 
     setFeedbackMessage(
-      `Success! ${quantity}x "${currentItem.name}" borrowed by ${enteredName}.`
+      `Success! ${quantity}x "${currentItem.name}" borrowed by ${currentUser.name}.`
     )
-    setBorrowerName('')
     setQuantity(1)
     setUserSelectedId(null)
   }
@@ -115,20 +120,20 @@ export function Borrowings({
 
         <form onSubmit={handleSubmit} className="borrow-form">
           <div className="form-grid">
-            <div className="form-group">
-              <label htmlFor="borrower-name" className="form-label">
-                Borrower's Name
-              </label>
-              <input
-                id="borrower-name"
-                type="text"
-                className="form-input"
-                placeholder="e.g. Ama Boateng"
-                value={borrowerName}
-                onChange={(e) => setBorrowerName(e.target.value)}
-                required
-              />
-              <span className="input-helper">Example: Ama Boateng, Kwame Mensah</span>
+            <div className="form-group borrower-identity">
+              <span className="form-label">Borrower</span>
+              <div className="borrower-profile">
+                <div className="borrower-avatar">
+                  {currentUser && avatarSources[currentUser.id] ? (
+                    <img src={avatarSources[currentUser.id]} alt="" />
+                  ) : currentUser?.avatarInitials ?? '?'}
+                </div>
+                <div>
+                  <strong>{currentUser?.name ?? 'No profile selected'}</strong>
+                  <span>{currentUser?.role ?? 'Sign in to continue'}</span>
+                </div>
+              </div>
+              <span className="input-helper">Borrowing is recorded for the signed-in profile.</span>
             </div>
 
             <div className="form-group">
@@ -155,6 +160,21 @@ export function Borrowings({
                   ))
                 )}
               </select>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="return-time" className="form-label">
+                Return Time
+              </label>
+              <input
+                id="return-time"
+                type="time"
+                className="form-input"
+                value={expectedReturnTime}
+                onChange={(e) => setExpectedReturnTime(e.target.value)}
+                required
+              />
+              <span className="input-helper">Choose the exact time the item is due.</span>
             </div>
 
             <div className="form-group">
@@ -194,7 +214,7 @@ export function Borrowings({
             <button
               type="submit"
               className="btn-confirm"
-              disabled={availableInventory.length === 0}
+              disabled={availableInventory.length === 0 || !currentUser}
             >
               Confirm Borrowing
             </button>
@@ -248,13 +268,19 @@ export function Borrowings({
                       </span>
                     </td>
                     <td>
+                      {(() => {
+                        const canReturn = currentUser?.role === 'Administrator' || b.borrowerName === currentUser?.name
+                        return (
                       <button
                         type="button"
                         className="btn-return"
+                        disabled={!canReturn}
                         onClick={() => onReturn(b.id)}
                       >
-                        Mark as Returned
+                        {canReturn ? 'Mark as Returned' : 'Not your loan'}
                       </button>
+                        )
+                      })()}
                     </td>
                   </tr>
                 ))
